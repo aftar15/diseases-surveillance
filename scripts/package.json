@@ -1,0 +1,13 @@
+{
+  "name": "dengue-tracker-scripts",
+  "version": "1.0.0",
+  "description": "Scripts for Dengue Monitoring System",
+  "main": "setup-database.js",
+  "scripts": {
+    "setup-db": "node setup-database.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "mysql2": "^3.6.1"
+  }
+} 

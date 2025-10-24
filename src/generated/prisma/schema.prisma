@@ -1,0 +1,110 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
+  binaryTargets = ["native", "windows"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// User model with role-based access
+model User {
+  id           String   @id @default(uuid())
+  name         String
+  email        String   @unique
+  password     String?
+  role         UserRole @default(public)
+  organization String?
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  alerts Alert[]
+
+  @@map("users")
+}
+
+// Dengue case reports submitted by the public
+model Report {
+  id          String       @id @default(uuid())
+  latitude    Float
+  longitude   Float
+  locationId  String?      @map("location_id")
+  barangayId  String?      @map("barangay_id")
+  symptoms    Json // Stored as JSON array of strings
+  reportDate  DateTime     @default(now()) @map("report_date")
+  status      ReportStatus @default(pending)
+  notes       String?      @db.Text
+  validatedBy String?      @map("validated_by")
+  validatedAt DateTime?    @map("validated_at")
+  createdAt   DateTime     @default(now()) @map("created_at")
+  updatedAt   DateTime     @updatedAt @map("updated_at")
+
+  @@map("reports")
+}
+
+// Hotspots generated from aggregated reports
+model Hotspot {
+  id             String   @id @default(uuid())
+  latitude       Float
+  longitude      Float
+  intensity      Float
+  reportCount    Int      @map("report_count")
+  lastReportDate DateTime @map("last_report_date")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("hotspots")
+}
+
+// Alerts for health officials and public
+model Alert {
+  id          String        @id @default(uuid())
+  title       String
+  message     String        @db.Text
+  severity    AlertSeverity
+  areaType    AreaType      @map("area_type")
+  coordinates Json // GeoJSON for area
+  createdBy   String        @map("created_by")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  expiresAt   DateTime?     @map("expires_at")
+  isActive    Boolean       @default(true) @map("is_active")
+
+  // Relations
+  user User @relation(fields: [createdBy], references: [id])
+
+  @@map("alerts")
+}
+
+// Enums
+enum UserRole {
+  admin
+  health_worker
+  researcher
+  public
+}
+
+enum ReportStatus {
+  pending
+  validated
+  rejected
+}
+
+enum AlertSeverity {
+  info
+  warning
+  critical
+}
+
+enum AreaType {
+  point
+  polygon
+}

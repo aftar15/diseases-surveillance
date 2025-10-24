@@ -1,0 +1,79 @@
+version: '3.8'
+
+services:
+  # MySQL Database
+  mysql:
+    image: mysql:8.0
+    container_name: dsms-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-dsms_root_password}
+      MYSQL_DATABASE: ${DB_NAME:-dsms}
+      MYSQL_USER: ${DB_USER:-dsms_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-dsms_password}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    networks:
+      - dsms-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+
+  # DSMS Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dsms-app
+    restart: unless-stopped
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: mysql://${DB_USER:-dsms_user}:${DB_PASSWORD:-dsms_password}@mysql:3306/${DB_NAME:-dsms}
+      JWT_SECRET: ${JWT_SECRET:-your-super-secure-jwt-secret-change-this-in-production}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - dsms-network
+    volumes:
+      - ./uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/api/database/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Redis for Session Storage (Optional)
+  redis:
+    image: redis:7-alpine
+    container_name: dsms-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dsms-network
+    command: redis-server --appendonly yes
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  mysql_data:
+    driver: local
+  redis_data:
+    driver: local
+
+networks:
+  dsms-network:
+    driver: bridge

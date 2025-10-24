@@ -1,0 +1,353 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-source-sans);
+  --font-mono: var(--font-roboto-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: calc(var(--radius) - 1px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 2px);
+}
+
+:root {
+  --radius: 0.375rem;
+  /* Government Website Theme - Light Mode with Enhanced Green */
+  --background: oklch(0.99 0.02 145); /* Very light green tint for background */
+  --foreground: oklch(0.25 0 0); /* Dark text for readability */
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.25 0 0);
+  --primary: oklch(0.45 0.15 145); /* Stronger green #1B7D2E */
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.9 0.06 145); /* More visible light green */
+  --secondary-foreground: oklch(0.25 0 0);
+  --muted: oklch(0.96 0.02 145); /* Light green-gray */
+  --muted-foreground: oklch(0.45 0 0);
+  --accent: oklch(0.92 0.07 145); /* More pronounced green accent */
+  --accent-foreground: oklch(0.3 0.15 145);
+  --destructive: oklch(0.5 0.2 20); /* More muted red */
+  --border: oklch(0.9 0.03 145); /* Light green border */
+  --input: oklch(0.9 0.02 145);
+  --ring: oklch(0.45 0.15 145); /* Primary green for focus */
+  /* Chart colors - greener government palette */
+  --chart-1: oklch(0.45 0.15 145); /* Primary green */
+  --chart-2: oklch(0.55 0.1 240); /* Blue */
+  --chart-3: oklch(0.6 0.12 40); /* Orange */
+  --chart-4: oklch(0.4 0.1 280); /* Purple */
+  --chart-5: oklch(0.5 0.15 20); /* Red */
+  /* Sidebar */
+  --sidebar: oklch(0.95 0.04 145); /* Light green background */
+  --sidebar-foreground: oklch(0.25 0 0);
+  --sidebar-primary: oklch(0.45 0.15 145); /* Primary green */
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.9 0.06 145);
+  --sidebar-accent-foreground: oklch(0.25 0 0);
+  --sidebar-border: oklch(0.9 0.03 145);
+  --sidebar-ring: oklch(0.45 0.15 145);
+  
+  /* Depth Layering System - Light from above principle */
+  --layer-base: oklch(0.96 0.02 145);
+  --layer-elevated-1: oklch(0.97 0.02 145);
+  --layer-elevated-2: oklch(0.98 0.02 145);
+  --layer-elevated-3: oklch(0.99 0.02 145);
+}
+
+.dark {
+  /* Government Website Theme - Dark Mode */
+  --background: oklch(0.2 0 0); /* Dark background */
+  --foreground: oklch(0.95 0 0); /* Light text */
+  --card: oklch(0.25 0 0);
+  --card-foreground: oklch(0.95 0 0);
+  --popover: oklch(0.25 0 0);
+  --popover-foreground: oklch(0.95 0 0);
+  --primary: oklch(0.5 0.12 145); /* Brighter green for dark mode */
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.3 0.04 145);
+  --secondary-foreground: oklch(0.95 0 0);
+  --muted: oklch(0.3 0 0);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.3 0.04 145);
+  --accent-foreground: oklch(0.95 0 0);
+  --destructive: oklch(0.6 0.16 20);
+  --border: oklch(0.3 0 0);
+  --input: oklch(0.3 0 0);
+  --ring: oklch(0.5 0.12 145);
+  /* Chart colors */
+  --chart-1: oklch(0.5 0.12 145); /* Green */
+  --chart-2: oklch(0.6 0.1 240); /* Blue */
+  --chart-3: oklch(0.65 0.12 40); /* Orange */
+  --chart-4: oklch(0.5 0.1 280); /* Purple */
+  --chart-5: oklch(0.6 0.15 20); /* Red */
+  /* Sidebar */
+  --sidebar: oklch(0.25 0 0);
+  --sidebar-foreground: oklch(0.95 0 0);
+  --sidebar-primary: oklch(0.5 0.12 145);
+  --sidebar-primary-foreground: oklch(0.1 0 0);
+  --sidebar-accent: oklch(0.3 0.04 145);
+  --sidebar-accent-foreground: oklch(0.95 0 0);
+  --sidebar-border: oklch(0.3 0 0);
+  --sidebar-ring: oklch(0.5 0.12 145);
+  
+  /* Depth Layering System - Dark Mode */
+  --layer-base: oklch(0.2 0 0);
+  --layer-elevated-1: oklch(0.25 0 0);
+  --layer-elevated-2: oklch(0.3 0 0);
+  --layer-elevated-3: oklch(0.35 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-medium tracking-tight;
+  }
+  h1 {
+    @apply text-3xl leading-tight;
+  }
+  h2 {
+    @apply text-2xl leading-tight;
+  }
+  h3 {
+    @apply text-xl leading-tight;
+  }
+  p {
+    @apply leading-relaxed;
+  }
+}
+
+/* Professional Government Theme Enhancements */
+.card {
+  @apply border border-border/80 rounded-lg transition-shadow duration-200;
+}
+
+/* Dual-Shadow System - Light from above principle */
+.shadow-subtle {
+  box-shadow: 
+    0 1px 2px 0 rgba(16, 24, 40, 0.05),
+    0 -0.5px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.shadow-standard {
+  box-shadow: 
+    0 4px 6px -1px rgba(16, 24, 40, 0.1),
+    0 2px 4px -1px rgba(16, 24, 40, 0.06),
+    0 -1px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.shadow-prominent {
+  box-shadow: 
+    0 20px 25px -5px rgba(16, 24, 40, 0.1),
+    0 10px 10px -5px rgba(16, 24, 40, 0.04),
+    0 -2px 0 0 rgba(255, 255, 255, 0.1) inset;
+}
+
+.shadow-hover {
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 100, 0, 0.15),
+    0 4px 6px -2px rgba(0, 100, 0, 0.08),
+    0 -1px 0 0 rgba(255, 255, 255, 0.2) inset;
+}
+
+/* Minimalist button styles appropriate for government site */
+.btn-primary {
+  @apply shadow-sm transition-all duration-200;
+}
+
+/* Subtle grid lines for data visualization */
+.data-grid {
+  background-image: linear-gradient(to right, var(--border) 1px, transparent 1px),
+                    linear-gradient(to bottom, var(--border) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-color: transparent;
+}
+
+/* Map Component Styling */
+.leaflet-container {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+.leaflet-popup-content-wrapper {
+  border-radius: var(--radius-sm) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+}
+
+.leaflet-popup-content {
+  margin: 12px 16px !important;
+  min-width: 200px;
+}
+
+.leaflet-control {
+  border-radius: var(--radius-sm) !important;
+  overflow: hidden;
+}
+
+/* Professional loading states */
+.loading-pulse {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-pulse::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* System status indicators */
+.status-indicator {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.status-indicator.active {
+  background-color: var(--primary);
+}
+
+.status-indicator.warning {
+  background-color: oklch(0.6 0.12 40); /* Orange */
+}
+
+.status-indicator.error {
+  background-color: var(--destructive);
+}
+
+/* Breadcrumb styling */
+.breadcrumbs li {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Responsive Typography Scale */
+@layer base {
+  h1 {
+    @apply text-2xl sm:text-3xl lg:text-4xl;
+  }
+  h2 {
+    @apply text-xl sm:text-2xl lg:text-3xl;
+  }
+  h3 {
+    @apply text-lg sm:text-xl lg:text-2xl;
+  }
+}
+
+/* Accessibility enhancements */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Mobile-optimized touch targets */
+@media (max-width: 768px) {
+  button, a[role="button"], input[type="submit"], input[type="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input:not([type="checkbox"]):not([type="radio"]), 
+  select, 
+  textarea {
+    min-height: 44px;
+  }
+}
+
+/* Table enhancements for government data */
+.gov-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.gov-table th {
+  background-color: var(--secondary);
+  font-weight: 600;
+  text-align: left;
+  padding: 0.75rem 1rem;
+}
+
+.gov-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.gov-table tr:hover td {
+  background-color: var(--secondary);
+}
+
+/* Print-friendly styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    color: black;
+    background: white;
+  }
+  
+  a[href]:after {
+    content: " (" attr(href) ")";
+    font-size: 90%;
+  }
+}
