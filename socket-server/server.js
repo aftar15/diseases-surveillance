@@ -15,7 +15,7 @@ const io = new Server(httpServer, {
   cors: {
     origin: [
       "http://localhost:3000",
-      "https://your-app.vercel.app", // Replace with your actual Vercel URL
+      "https://diseases-surveillance-systems.vercel.app/", // Replace with your actual Vercel URL
       /\.vercel\.app$/, // Allow any Vercel subdomain
       /^https:\/\/.*\.vercel\.app$/
     ],

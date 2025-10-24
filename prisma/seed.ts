@@ -5,11 +5,17 @@ const prisma = new PrismaClient();
 const saltRounds = 10;
 
 async function main() {
-  console.log('Seeding the database...');
+  console.log('🌱 Seeding the database...');
+  console.log('📊 Database URL:', process.env.DATABASE_URL?.replace(/:[^:@]*@/, ':****@')); // Hide password in logs
 
-  // Hash passwords
-  const adminPasswordHash = bcrypt.hashSync('admin123', saltRounds);
-  const healthPasswordHash = bcrypt.hashSync('health123', saltRounds);
+  // Hash passwords - use environment variables for production
+  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const healthPassword = process.env.HEALTH_PASSWORD || 'health123';
+  
+  const adminPasswordHash = bcrypt.hashSync(adminPassword, saltRounds);
+  const healthPasswordHash = bcrypt.hashSync(healthPassword, saltRounds);
+  
+  console.log('🔐 Using secure passwords from environment variables');
 
   // Create admin user
   const admin = await prisma.user.upsert({
