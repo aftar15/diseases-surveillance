@@ -15,8 +15,8 @@ export function useSocket() {
   useEffect(() => {
     // Initialize socket connection if not already established
     if (!socket) {
-      // Use environment variable in production
-      const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3000';
+      // Use external socket server URL
+      const socketUrl = process.env.NEXT_PUBLIC_SOCKET_URL || 'http://localhost:3001';
       
       socket = io(socketUrl, {
         reconnectionAttempts: 5,
